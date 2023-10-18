@@ -1,19 +1,57 @@
 package com.lbg.cohort4;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        float cost = 0;
+        int vat = 0;
+        float total_cost = 0;
+        boolean correct_value = true;
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        cost = take_user_input("price");
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+        System.out.println("Price of the product without VAT: " + cost);
+
+        while(correct_value){
+            vat = (int)take_user_input("VAT");
+
+            if(vat == 5 || vat == 20 ){
+                correct_value = false;
+            }else{
+                System.out.println("VAT not accepted! VAT should be either 5% or 20%!");
+            }
         }
+
+        System.out.println("Product VAT is: " + vat);
+
+        total_cost = calculate_total_price(cost, vat);
+        System.out.println(String.format("The price of the product with VAT is: %.2f£", total_cost));
+    }
+
+    private static float calculate_total_price(float cost, int vat) {
+        return cost + ((cost*vat)/100);
+    }
+
+    private static float take_user_input(String operation){
+        float result = 0F;
+        boolean correct_value = true;
+
+        System.out.printf(String.format("\nPlease enter the %s of the product: ", operation));
+
+        while(correct_value){
+            try{
+                Scanner sc = new Scanner(System.in);
+                result = sc.nextInt();
+                correct_value = false;
+            }catch(InputMismatchException e){
+                System.out.println("Incorrect value input. Please give a proper value.");
+            }
+        }
+
+        return result;
     }
 }
