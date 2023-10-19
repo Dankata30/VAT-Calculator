@@ -14,7 +14,7 @@ public class Main {
         int vat = 0;
         float total_cost = 0;
         boolean correct_value = true;
-        ArrayList<Float> prices = new ArrayList<>();
+        ArrayList<PurchasedItem> items = new ArrayList<>();
 
 
         while(true){
@@ -37,22 +37,27 @@ public class Main {
 //                    Prompt user to insert prices
                     while (true) {
                         cost = take_user_input("price");
-                        prices.add(calculate_total_price(cost, vat));
+                        PurchasedItem item = new PurchasedItem(cost, 1, vat);
+
+                        items.add(item);
 
                         if (check_quit("Do you want to add another product or quit? Type Quit to leave.")) {
                             break;
                         }
                     }
 
-
-                    if(prices.size() > 0){
-                        for(Float price: prices){
+                    int counter = 0;
+                    if(items.size() > 0){
+                        for(PurchasedItem current_item: items){
+                            float price = current_item.total_price();
+                            System.out.println("The price of product " + counter++ + " is " + price);
                             total_cost+=price;
                         }
 
                         System.out.printf(String.format("\nThe price of all the objects so far is: %.2f£ \n", total_cost));
 
                     }
+                    counter = 0;
             }
         }
     }
@@ -82,13 +87,11 @@ public class Main {
 
     private static boolean check_quit(String prompt){
         System.out.println(prompt);
-//        System.out.println("Do you want to add another product or quit? Type Quit to leave.");
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
 
         if(str.isEmpty() || !str.equals("quit")){
-            System.out.println(str);
             return false;
         }else{
             return true;
