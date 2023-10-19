@@ -1,6 +1,8 @@
 package com.lbg.cohort4;
 
+
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -29,7 +31,7 @@ public class Main {
         System.out.println("Product VAT is: " + vat);
 
         total_cost = calculate_total_price(cost, vat);
-        System.out.println(String.format("The price of the product with VAT is: %.2f£", total_cost));
+        System.out.println(String.format("The VAT paid is: %.2f£. The price of the product with VAT is: %.2f£", cost*vat/100, total_cost));
     }
 
     private static float calculate_total_price(float cost, int vat) {
@@ -47,7 +49,7 @@ public class Main {
                 Scanner sc = new Scanner(System.in);
                 result = sc.nextInt();
                 correct_value = false;
-            }catch(InputMismatchException e){
+            }catch(NoSuchElementException e){
                 System.out.println("Incorrect value input. Please give a proper value.");
             }
         }
