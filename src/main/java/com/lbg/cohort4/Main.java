@@ -17,85 +17,66 @@ public class Main {
         ArrayList<PurchasedItem> items = new ArrayList<>();
 
 
-        while(true){
-            if(check_quit("Quit to leave or anything else to get your products")){
+        while (true) {
+//          Prompt user to choose to quit or add new products
+            String resp = UserInput.take_user_input("Quit to leave or anything else to get your products");
+            if (resp.equals("quit")) {
                 System.out.println("Thanks for using our system! See you soon again!");
                 System.exit(0);
-            }else{
+            } else {
 
-//                Prompt user to give VAT
+//              Prompt user to give VAT
                 while (correct_value) {
-                    vat = (int) take_user_input("VAT");
+                    resp = UserInput.take_user_input("Please enter the VAT of the product: ");
 
-                    if (vat == 5 || vat == 20) {
-                        correct_value = false;
-                    } else {
-                        System.out.println("VAT not accepted! VAT should be either 5% or 20%!");
+                    try {
+                        vat = Integer.parseInt(resp);
+
+//                        check if successfully parsed vat is of the correct value
+                        if (vat == 5 || vat == 20) {
+                            correct_value = false;
+                        } else {
+                            System.out.println("VAT not accepted! VAT should be either 5% or 20%!");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Incorrect value input. Please give a proper value.");
                     }
+
                 }
 
 //                    Prompt user to insert prices
-                    while (true) {
-                        cost = take_user_input("price");
-                        PurchasedItem item = new PurchasedItem(cost, 1, vat);
+                while (true) {
+                    resp = UserInput.take_user_input("Please enter the price of the product: ");
 
-                        items.add(item);
-
-                        if (check_quit("Do you want to add another product or quit? Type Quit to leave.")) {
-                            break;
-                        }
+//                      try and parse a float value for the cost of the object
+                    try {
+                        cost = Float.parseFloat(resp);
+                    } catch (Exception e) {
+                        System.out.println("Incorrect value input. Please give a proper value.");
                     }
 
-                    int counter = 0;
-                    if(items.size() > 0){
-                        for(PurchasedItem current_item: items){
-                            float price = current_item.total_price();
-                            System.out.println("The price of product " + counter++ + " is " + price);
-                            total_cost+=price;
-                        }
+                    items.add(new PurchasedItem(cost, 1, vat));
 
-                        System.out.printf(String.format("\nThe price of all the objects so far is: %.2f£ \n", total_cost));
+                    resp = UserInput.take_user_input("Do you want to add another product or quit? Type Quit to leave.");
 
+                    if (resp.equals("quit")) {
+                        break;
                     }
-                    counter = 0;
+                }
+
+                int counter = 0;
+                if (items.size() > 0) {
+                    for (PurchasedItem current_item : items) {
+                        float price = current_item.total_price();
+                        System.out.println("The price of product " + counter++ + " is " + price);
+                        total_cost += price;
+                    }
+
+                    System.out.printf(String.format("\nThe price of all the objects so far is: %.2f£ \n", total_cost));
+
+                }
+                counter = 0;
             }
         }
     }
-
-    private static float calculate_total_price(float cost, int vat) {
-        return cost + ((cost*vat)/100);
-    }
-
-    private static float take_user_input(String operation){
-        float result = 0F;
-        boolean correct_value = true;
-
-        System.out.printf(String.format("\nPlease enter the %s of the product: ", operation));
-
-        while(correct_value){
-            try{
-                Scanner sc = new Scanner(System.in);
-                result = sc.nextInt();
-                correct_value = false;
-            }catch(NoSuchElementException e){
-                System.out.println("Incorrect value input. Please give a proper value.");
-            }
-        }
-
-        return result;
-    }
-
-    private static boolean check_quit(String prompt){
-        System.out.println(prompt);
-
-        Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-
-        if(str.isEmpty() || !str.equals("quit")){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
 }
