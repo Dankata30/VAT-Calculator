@@ -1,6 +1,7 @@
 package com.lbg.cohort4;
 
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -13,25 +14,47 @@ public class Main {
         int vat = 0;
         float total_cost = 0;
         boolean correct_value = true;
+        ArrayList<Float> prices = new ArrayList<>();
 
-        cost = take_user_input("price");
 
-        System.out.println("Price of the product without VAT: " + cost);
-
-        while(correct_value){
-            vat = (int)take_user_input("VAT");
-
-            if(vat == 5 || vat == 20 ){
-                correct_value = false;
+        while(true){
+            if(check_quit("Quit to leave or anything else to get your products")){
+                System.out.println("Thanks for using our system! See you soon again!");
+                System.exit(0);
             }else{
-                System.out.println("VAT not accepted! VAT should be either 5% or 20%!");
+
+//                Prompt user to give VAT
+                while (correct_value) {
+                    vat = (int) take_user_input("VAT");
+
+                    if (vat == 5 || vat == 20) {
+                        correct_value = false;
+                    } else {
+                        System.out.println("VAT not accepted! VAT should be either 5% or 20%!");
+                    }
+                }
+
+//                    Prompt user to insert prices
+                    while (true) {
+                        cost = take_user_input("price");
+                        prices.add(calculate_total_price(cost, vat));
+
+                        if (check_quit("Do you want to add another product or quit? Type Quit to leave.")) {
+                            break;
+                        }
+                    }
+
+
+                    if(prices.size() > 0){
+                        for(Float price: prices){
+                            total_cost+=price;
+                        }
+
+                        System.out.printf(String.format("\nThe price of all the objects so far is: %.2f£ \n", total_cost));
+
+                    }
             }
         }
-
-        System.out.println("Product VAT is: " + vat);
-
-        total_cost = calculate_total_price(cost, vat);
-        System.out.println(String.format("The VAT paid is: %.2f£. The price of the product with VAT is: %.2f£", cost*vat/100, total_cost));
     }
 
     private static float calculate_total_price(float cost, int vat) {
@@ -56,4 +79,20 @@ public class Main {
 
         return result;
     }
+
+    private static boolean check_quit(String prompt){
+        System.out.println(prompt);
+//        System.out.println("Do you want to add another product or quit? Type Quit to leave.");
+
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+
+        if(str.isEmpty() || !str.equals("quit")){
+            System.out.println(str);
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 }
