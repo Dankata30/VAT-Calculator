@@ -15,8 +15,12 @@ public class Exit implements ParsePrompt {
     }
 
     @Override
-    public String getResp() {
-        return resp;
+    public boolean getResp() {
+        if(this.resp.equals("quit")){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public void setResp(String resp) {

@@ -6,33 +6,28 @@ import java.util.ArrayList;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
+        ParserHelper ph = new ParserHelper();
         ArrayList<PurchasedItem> items = new ArrayList<>();
         ArrayList<ParsePrompt> prompts = new ArrayList<>();
-        Price prices = new Price();
-        Vat vats = new Vat();
+
+        // setting the helper lambda functions
+        TFix priceHandler = ph.getPriceHandler();
+        TFix vatHandler = ph.getVatHandler();
+        ParsePromptImpl prices = new ParsePromptImpl(priceHandler);
+        ParsePromptImpl vats = new ParsePromptImpl(vatHandler);
+
+
         Exit exitObject = new Exit();
 
         prompts.add(exitObject);
         prompts.add(vats);
         prompts.add(prices);
 
-
-        boolean exit = false;
-//        use prompts to run the code
-        while(!exit){
-            for(ParsePrompt prompt: prompts){
-                prompt.parsePrompt();
-
-//                System.out.println(prompt.getResp());
-                if(prompt.getResp().equals("quit")){
-                    exit=true;
-                    break;
-                }
-            }
-        }
+        // prompting user logic
+        promptUser(prompts);
 
         // create and populate items array list
-        createItems(prices.getPrices(), vats.getVats(), items);
+        createItems(prices.getValues(), vats.getValues(), items);
 
         // calculates the values for all items and closes the program
         disclosePrises(items);
@@ -55,14 +50,23 @@ public class Main {
         System.out.println("Thank you for using our system!");
     }
 
-    private static void createItems(ArrayList<Float> prices, ArrayList<Integer> vats, ArrayList<PurchasedItem> items) {
+    private static void createItems(ArrayList<Object> prices, ArrayList<Object> vats, ArrayList<PurchasedItem> items) {
         //      take the inserted values for prices and vat
 
         for(int i=0; i< prices.size(); i++){
-            items.add(new PurchasedItem(prices.get(i), 1, vats.get(i)));
+            items.add(new PurchasedItem((float)prices.get(i), 1, (int)vats.get(i)));
         }
     }
 
+    private static void promptUser(ArrayList<ParsePrompt> prompts){
+//        use prompts to run the code until user types quit
+        while(true){
+            for(ParsePrompt prompt: prompts){
+                prompt.parsePrompt();
 
+                if(prompt.getResp()) return;
+            }
+        }
+    }
 }
 
