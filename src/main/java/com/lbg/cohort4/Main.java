@@ -1,6 +1,7 @@
 package com.lbg.cohort4;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -10,32 +11,38 @@ public class Main {
         ArrayList<ParsePrompt> prompts = new ArrayList<>();
         Price prices = new Price();
         Vat vats = new Vat();
+        Quantity quantities = new Quantity();
         Exit exitObject = new Exit();
 
         prompts.add(exitObject);
         prompts.add(vats);
+        prompts.add(quantities);
         prompts.add(prices);
 
+        Catalogue catalogue = new Catalogue();
 
-        boolean exit = false;
-//        use prompts to run the code
-        while(!exit){
-            for(ParsePrompt prompt: prompts){
-                prompt.parsePrompt();
+        catalogue.showCatalogue();
 
-//                System.out.println(prompt.getResp());
-                if(prompt.getResp().equals("quit")){
-                    exit=true;
-                    break;
-                }
-            }
-        }
 
-        // create and populate items array list
-        createItems(prices.getPrices(), vats.getVats(), items);
-
-        // calculates the values for all items and closes the program
-        disclosePrises(items);
+//        boolean exit = false;
+////        use prompts to run the code
+//        while(!exit){
+//            for(ParsePrompt prompt: prompts){
+//                prompt.parsePrompt();
+//
+////                System.out.println(prompt.getResp());
+//                if(prompt.getResp().equals("quit")){
+//                    exit=true;
+//                    break;
+//                }
+//            }
+//        }
+//
+//        // create and populate items array list
+//        createItems(prices.getPrices(), vats.getVats(), quantities.getQuantities(),items);
+//
+//        // calculates the values for all items and closes the program
+//        disclosePrises(items);
     }
 
     private static void disclosePrises(ArrayList<PurchasedItem> items) {
@@ -55,11 +62,11 @@ public class Main {
         System.out.println("Thank you for using our system!");
     }
 
-    private static void createItems(ArrayList<Float> prices, ArrayList<Integer> vats, ArrayList<PurchasedItem> items) {
+    private static void createItems(ArrayList<Float> prices, ArrayList<Integer> vats, ArrayList<Integer> quantities ,ArrayList<PurchasedItem> items) {
         //      take the inserted values for prices and vat
 
         for(int i=0; i< prices.size(); i++){
-            items.add(new PurchasedItem(prices.get(i), 1, vats.get(i)));
+            items.add(new PurchasedItem(prices.get(i), quantities.get(i), vats.get(i)));
         }
     }
 
