@@ -1,6 +1,6 @@
 package com.lbg.cohort4;
 
-public class PromptImplementations {
+public class CreateLambdas {
 
     public TFix pickItem(){
 
@@ -72,7 +72,6 @@ public class PromptImplementations {
                             temp.getQuantity() - quantity, item.getVat(), item.getWarranty()));
                     break;
                 } catch (Exception e) {
-                    System.out.println(e);
                     System.out.println("Incorrect value input. Please give a proper value.");
                 }
             }

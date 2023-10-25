@@ -1,7 +1,6 @@
 package com.lbg.cohort4;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -11,7 +10,7 @@ public class Main {
         ArrayList<ParsePrompt> prompts = new ArrayList<>();
         Catalogue catalogue = new Catalogue();
 
-        PromptImplementations pimpl = new PromptImplementations();
+        CreateLambdas pimpl = new CreateLambdas();
         ParsePromptImpl exitObject = new ParsePromptImpl(pimpl.quit());
         ParsePromptImpl pickItem = new ParsePromptImpl(pimpl.pickItem());
         ParsePromptImpl quantities = new ParsePromptImpl(pimpl.quantity());
