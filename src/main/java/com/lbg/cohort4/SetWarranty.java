@@ -2,12 +2,6 @@ package com.lbg.cohort4;
 
 public class SetWarranty implements ParsePrompt {
 
-    private String resp;
-
-    public SetWarranty(){
-        this.resp = "";
-    }
-
     @Override
     public boolean parsePrompt(Catalogue cat, Item item) {
         if(item.getE_w() == 'n'){
@@ -35,8 +29,4 @@ public class SetWarranty implements ParsePrompt {
         return true;
     }
 
-    @Override
-    public String getResp() {
-        return resp;
-    }
 }

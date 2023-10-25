@@ -2,12 +2,6 @@ package com.lbg.cohort4;
 
 public class PickItem implements ParsePrompt {
 
-    private String resp;
-
-    public PickItem(){
-        this.resp = "";
-    }
-
     @Override
     public boolean parsePrompt(Catalogue cat, Item item) {
         cat.showCatalogue();
@@ -44,8 +38,4 @@ public class PickItem implements ParsePrompt {
         return true;
     }
 
-    @Override
-    public String getResp() {
-        return resp;
-    }
 }

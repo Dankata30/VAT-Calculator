@@ -2,12 +2,6 @@ package com.lbg.cohort4;
 
 public class Warranty implements ParsePrompt {
 
-    private String resp;
-
-    public Warranty(){
-        this.resp = "";
-    }
-
     @Override
     public boolean parsePrompt(Catalogue cat, Item item) {
         if(!item.getWarranty()){
@@ -36,8 +30,4 @@ public class Warranty implements ParsePrompt {
         return true;
     }
 
-    @Override
-    public String getResp() {
-        return resp;
-    }
 }

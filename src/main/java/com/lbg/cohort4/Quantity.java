@@ -3,12 +3,6 @@ package com.lbg.cohort4;
 import java.util.ArrayList;
 
 public class Quantity implements ParsePrompt {
-    private String resp;
-
-
-    public Quantity(){
-        this.resp = "";
-    }
 
     @Override
     public boolean parsePrompt(Catalogue cat, Item item) {
@@ -47,12 +41,4 @@ public class Quantity implements ParsePrompt {
         return true;
     }
 
-    @Override
-    public String getResp() {
-        return resp;
-    }
-
-    public void setResp(Integer cost) {
-        this.resp = Integer.toString(cost);
-    }
 }
