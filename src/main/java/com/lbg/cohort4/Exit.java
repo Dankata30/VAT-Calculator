@@ -9,17 +9,20 @@ public class Exit implements ParsePrompt {
     }
 
     @Override
-    public void parsePrompt(Catalogue cat, Item item) {
+    public boolean parsePrompt(Catalogue cat, Item item) {
         String resp = UserInput.take_user_input("Do you want to add another product or quit? Type Quit/quit to leave.");
-        setResp(resp);
+
+
+        if(resp.equals("quit")){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
     @Override
     public String getResp() {
         return resp;
-    }
-
-    public void setResp(String resp) {
-         this.resp = resp.toLowerCase();
     }
 }

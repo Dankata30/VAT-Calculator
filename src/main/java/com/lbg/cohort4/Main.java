@@ -22,27 +22,15 @@ public class Main {
         prompts.add(extended_warranty);
         prompts.add(set_warranty);
 
-//        catalogue.showCatalogue();
 
-        // prompt quit
-        // show objects and make user pick one
-        // input quantity
-        // check for extended warranty
-        // if there is extended warranty insert info
-
-
-        boolean exit = false;
+        boolean exit = true;
 //        use prompts to run the code
-        while(!exit){
+        while(exit){
             Item item = new Item(0, "", 0, 0,0,false);
             for(ParsePrompt prompt: prompts){
-                prompt.parsePrompt(catalogue, item);
+                exit = prompt.parsePrompt(catalogue, item);
 
-//                System.out.println(prompt.getResp());
-                if(prompt.getResp().equals("quit")){
-                    exit=true;
-                    break;
-                }
+                if(!exit) break;
             }
 
             if(item.getId() != 0){

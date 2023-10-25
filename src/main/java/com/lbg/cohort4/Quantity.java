@@ -11,7 +11,7 @@ public class Quantity implements ParsePrompt {
     }
 
     @Override
-    public void parsePrompt(Catalogue cat, Item item) {
+    public boolean parsePrompt(Catalogue cat, Item item) {
 
         while(true) {
             int quantity = 0;
@@ -44,7 +44,7 @@ public class Quantity implements ParsePrompt {
                 System.out.println("Incorrect value input. Please give a proper value.");
             }
         }
-
+        return true;
     }
 
     @Override

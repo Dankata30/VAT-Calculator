@@ -9,7 +9,7 @@ public class PickItem implements ParsePrompt {
     }
 
     @Override
-    public void parsePrompt(Catalogue cat, Item item) {
+    public boolean parsePrompt(Catalogue cat, Item item) {
         cat.showCatalogue();
 
 
@@ -40,16 +40,12 @@ public class PickItem implements ParsePrompt {
             } catch (Exception e) {
                 System.out.println("Incorrect value input. Please give a proper value.");
             }
-            setResp(resp);
         }
+        return true;
     }
 
     @Override
     public String getResp() {
         return resp;
-    }
-
-    public void setResp(String resp) {
-        this.resp = resp.toLowerCase();
     }
 }

@@ -9,9 +9,9 @@ public class SetWarranty implements ParsePrompt {
     }
 
     @Override
-    public void parsePrompt(Catalogue cat, Item item) {
+    public boolean parsePrompt(Catalogue cat, Item item) {
         if(item.getE_w() == 'n'){
-            return;
+            return true;
         }
 
         while (true) {
@@ -32,6 +32,7 @@ public class SetWarranty implements ParsePrompt {
                 System.out.println("Incorrect value input. Please give a proper value.");
             }
         }
+        return true;
     }
 
     @Override

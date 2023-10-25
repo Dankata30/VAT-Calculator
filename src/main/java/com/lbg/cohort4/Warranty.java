@@ -9,10 +9,10 @@ public class Warranty implements ParsePrompt {
     }
 
     @Override
-    public void parsePrompt(Catalogue cat, Item item) {
+    public boolean parsePrompt(Catalogue cat, Item item) {
         if(!item.getWarranty()){
             System.out.println("This item has no extended warranty");
-            return;
+            return true;
         }
 
         while (true) {
@@ -33,6 +33,7 @@ public class Warranty implements ParsePrompt {
                 System.out.println("Incorrect value input. Please give a proper value.");
             }
         }
+        return true;
     }
 
     @Override
