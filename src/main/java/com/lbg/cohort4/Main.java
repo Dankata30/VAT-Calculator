@@ -9,12 +9,14 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Item> items = new ArrayList<>();
         ArrayList<ParsePrompt> prompts = new ArrayList<>();
-        Exit exitObject = new Exit();
         Catalogue catalogue = new Catalogue();
-        Quantity quantities = new Quantity();
-        Warranty extended_warranty = new Warranty();
-        SetWarranty set_warranty = new SetWarranty();
-        PickItem pickItem = new PickItem();
+
+        PromptImplementations pimpl = new PromptImplementations();
+        ParsePromptImpl exitObject = new ParsePromptImpl(pimpl.quit());
+        ParsePromptImpl pickItem = new ParsePromptImpl(pimpl.pickItem());
+        ParsePromptImpl quantities = new ParsePromptImpl(pimpl.quantity());
+        ParsePromptImpl extended_warranty = new ParsePromptImpl(pimpl.warranty());
+        ParsePromptImpl set_warranty = new ParsePromptImpl(pimpl.setWarranty());
 
         prompts.add(exitObject);
         prompts.add(pickItem);
