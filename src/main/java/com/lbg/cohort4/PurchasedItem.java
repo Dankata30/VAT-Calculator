@@ -1,19 +1,15 @@
 package com.lbg.cohort4;
 
 public class PurchasedItem {
-    private float cost;
-    private int quantity;
-    private int vat;
+    private Item item;
 
 
-    public PurchasedItem(float cost, int quantity, int vat) {
-        this.cost = cost;
-        this.quantity = quantity;
-        this.vat = vat;
+    public PurchasedItem(Item item) {
+        this.item = item;
     }
 
     public float total_price(){
-        return (cost + cost*vat/100)*quantity;
+        return (item.getCost() + item.getCost()*item.getVat()/100)*item.getQuantity();
     }
 
 }
